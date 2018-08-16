@@ -1,9 +1,9 @@
 # Webpack 4.0 Simple
-[![Github All Releases](https://img.shields.io/badge/npm-0.0.1-brightgreen.svg)](https://github.com/gkf442573575/wepack4.0-simple)
-
 webpack 4.0 的简易项目模版
 
 Webpack 4.0 Simple project template
+
+[![NpmVersion](https://img.shields.io/npm/v/longinus.svg)](https://www.npmjs.com/package/longinus)
 
 ## Use
 ```bash
