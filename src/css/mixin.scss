@@ -1,0 +1,110 @@
+@charset "utf-8";
+$primary: #45B035;
+$width-small: 320px;
+$width-medium: 375px;
+$width-large: 1200px;
+@mixin responsive($width) {
+    @if $width==wide {
+        @media only screen and (max-width: $width-large) {
+            @content;
+        }
+    }
+    @else if $width==medium {
+        @media only screen and (max-width: $width-medium) {
+            @content;
+        }
+    }
+    @else if $width==small {
+        @media only screen and (max-width: $width-small) {
+            @content;
+        }
+    }
+}
+
+@function trancesmall($px) {
+    @return ($px*0.85)*1px;
+}
+
+@mixin border1px($top, $right, $bottom, $left, $color) {
+    position: relative;
+    $scale: 3;
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100% *$scale;
+        height: 100% * $scale;
+        border: 0 $color solid;
+        box-sizing: border-box;
+        transform-origin: 0 0;
+        transform: scale(1 / $scale);
+        pointer-events: none;
+        z-index: 0;
+        @if $top>0 {
+            border-top-width: 1px;
+        }
+        @if $right>0 {
+            border-right-width: 1px;
+        }
+        @if $bottom>0 {
+            border-bottom-width: 1px;
+        }
+        @if $left>0 {
+            border-left-width: 1px;
+        }
+    }
+}
+
+@mixin flexR {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin flexC {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin centerX {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@mixin centerY {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@mixin centerC {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin overFlowText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin textLineOver($line:2) {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+}
+
+@mixin wh100 {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin img100 {
+    @include wh100;
+    display: block;
+}

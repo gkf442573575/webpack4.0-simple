@@ -2,7 +2,7 @@
 
 const app = {
 
-    id:1
+
 
 
 }
