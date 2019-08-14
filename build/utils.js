@@ -9,9 +9,7 @@ exports.cssLoaders = function(options) {
     const cssLoader = {
         loader: 'css-loader',
         options: {
-            sourceMap: options.sourceMap,
-            // url: false, // 使用正确的相对路径
-            minimize: true, // 压缩css
+            sourceMap: options.sourceMap
         }
     }
 
@@ -24,9 +22,7 @@ exports.cssLoaders = function(options) {
 
     const styleLoader = {
         loader: 'style-loader',
-        options: {
-            sourceMap: options.sourceMap
-        }
+        options: {}
     }
 
     function generateLoaders(loader, loaderOptions) {
