@@ -4,6 +4,7 @@ const utils = require('./utils');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const path = require('path');
 module.exports = merge(webpackBaseConfig, {
     mode: 'development',
     output: {
@@ -15,7 +16,6 @@ module.exports = merge(webpackBaseConfig, {
         })
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new FriendlyErrorsPlugin({
@@ -24,7 +24,8 @@ module.exports = merge(webpackBaseConfig, {
             },
             onErrors: config.dev.notifyOnErrors ?
                 utils.createNotifierCallback() : undefined
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
         host: config.dev.host,
@@ -40,6 +41,18 @@ module.exports = merge(webpackBaseConfig, {
         clientLogLevel: "none",
         quiet: true,
         open: config.dev.autoOpenBrowser,
-        proxy: config.dev.proxyTable
+        proxy: config.dev.proxyTable,
+        before(app, server, compiler) {
+            const watchFiles = ['.html', '.pug'];
+            compiler.hooks.done.tap('done', () => {
+                const changedFiles = Object.keys(compiler.watchFileSystem.watcher.mtimes);
+                if (
+                    this.hot
+                    && changedFiles.some(filePath => watchFiles.includes(path.parse(filePath).ext))
+                ) {
+                    server.sockWrite(server.sockets, 'content-changed');
+                }
+            });
+        },
     },
 });

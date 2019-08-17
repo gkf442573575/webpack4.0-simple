@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "webpack 4.0 的简易项目模版",
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --hot --progress --config build/webpack.dev.conf.js",
     "build": "webpack --inline --progress --config build/webpack.prod.conf.js"
   },
   "author": "",

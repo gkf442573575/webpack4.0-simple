@@ -1,7 +1,7 @@
 const webpackBaseConfig = require('./webpack.base.conf');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const cleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin  } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const config = require('./config');
@@ -45,7 +45,6 @@ module.exports = merge(webpackBaseConfig, {
             new UglifyJsPlugin({ // 压缩代码是去除console.log
                 uglifyOptions: {
                     compress: {
-                        warnings: false,
                         drop_debugger: true,
                         drop_console: true
                     }
@@ -54,9 +53,7 @@ module.exports = merge(webpackBaseConfig, {
         ]
     },
     plugins: [
-        new cleanWebpackPlugin(["dist"], {
-            root: config.projectPath
-        }),
+        new CleanWebpackPlugin(),
         new webpack.HashedModuleIdsPlugin(),
         new MiniCssExtractPlugin({
             publicPath: '../',

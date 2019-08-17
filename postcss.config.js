@@ -4,7 +4,8 @@ module.exports = {
     plugins: [
         require('precss'),
         autoprefixer({
-            browsers: ['last 2 versions', "IE 9"]
+            cascade: true,
+            remove: true
         })
     ]
 }
